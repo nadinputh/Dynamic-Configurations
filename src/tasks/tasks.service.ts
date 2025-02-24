@@ -1,9 +1,9 @@
+import { ScheduleModel } from '@/_config/schedules.config';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ClientProxy, ClientProxyFactory } from '@nestjs/microservices';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
-import { ScheduleModel } from 'src/_config/schedules.config';
 
 @Injectable()
 export class TasksService implements OnModuleInit {
@@ -17,7 +17,7 @@ export class TasksService implements OnModuleInit {
   }
 
   onModuleInit() {
-    const schedules = this.config.get<Array<ScheduleModel>>('schedules');
+    const schedules = this.config.get<Array<ScheduleModel>>('schedule.jobs');
     schedules.forEach((schedule) => {
       if (!schedule.enabled) {
         this.logger.verbose(
@@ -34,7 +34,7 @@ export class TasksService implements OnModuleInit {
         );
         if (!!schedule.event) {
           this.client.emit(
-            `${this.config.get('prefix', 'schedule:')}${schedule.event}`,
+            `${this.config.get('schedule.prefix', 'schedule:')}${schedule.event}`,
             schedule,
           );
         }

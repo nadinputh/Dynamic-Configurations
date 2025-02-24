@@ -9,6 +9,7 @@ export default (config: string) =>
       options: {
         urls: [
           {
+            protocol: 'amqp',
             hostname: process.env.RABBIT_HOST,
             port: parseInt(process.env.RABBIT_PORT),
             username: process.env.RABBIT_USER,

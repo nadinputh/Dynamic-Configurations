@@ -1,6 +1,6 @@
 prefix: 'schedule:'
 
-schedules:
+jobs:
   - enabled: false
     name: 'notifications'
     cron: '45 * * * * *'
@@ -9,3 +9,7 @@ schedules:
     name: 'every_minute'
     cron: '1 * * * * *'
     event: 'every_minute'
+  - enabled: false
+    name: 'every_second'
+    cron: '* * * * * *'
+    event: 'every_second'
