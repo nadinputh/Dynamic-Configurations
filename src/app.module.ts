@@ -1,21 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ScheduleModule } from '@nestjs/schedule';
-import { TerminusModule } from '@nestjs/terminus';
-import { HealthController } from '@/health/health.controller';
-import { TasksModule } from '@/tasks/tasks.module';
-import { ConfigsModule } from './_config/configs.module';
+import { ApplicationModule } from './application/application.module';
 
 @Module({
-  imports: [
-    ConfigsModule,
-    TerminusModule.forRoot({
-      errorLogStyle: 'pretty',
-      gracefulShutdownTimeoutMs: 1000,
-    }),
-    ScheduleModule.forRoot(),
-    TasksModule,
-  ],
-  controllers: [HealthController],
+  imports: [ApplicationModule],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}

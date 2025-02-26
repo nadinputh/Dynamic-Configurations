@@ -1,4 +1,4 @@
-import { ScheduleModel } from '@/_config/schedules.config';
+import { ScheduleModel } from '@/infrastructure/_config/schedules.config';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ClientProxy, ClientProxyFactory } from '@nestjs/microservices';
@@ -25,6 +25,7 @@ export class TasksService implements OnModuleInit {
         );
         return;
       }
+
       const job = new CronJob(`${schedule.cron}`, () => {
         this.logger.warn(
           `last date: ${this.scheduler.getCronJob(schedule.name).lastDate()}`,

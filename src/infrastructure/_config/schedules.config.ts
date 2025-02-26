@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import * as yaml from 'js-yaml';
 import { resolve } from 'path';
 
-const YAML_CONFIG_FILENAME = 'schedule.yaml';
+export const YAML_CONFIG_FILENAME = 'schedule.yaml';
 
 export default (name: string) => {
   return registerAs(name, () => {
