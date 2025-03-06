@@ -67,11 +67,11 @@ export abstract class ConfigAdapter implements OnModuleInit, OnModuleDestroy {
    * Load Configuration once the host module has been initialized; and also able to start a reload job
    * with a specific CRON TIME.
    */
-  onModuleInit() {
+  async onModuleInit() {
     /**
      * First Load Configuration once the host module has been initialized
      */
-    this.config.set(this.name, this.load());
+    this.config.set(this.name, await this.load());
 
     /**
      * Cron Options with Default if not provided
@@ -91,12 +91,12 @@ export abstract class ConfigAdapter implements OnModuleInit, OnModuleDestroy {
       !this.scheduler.doesExist('cron', this.options.name)
     ) {
       // Implementation of Add new Job of Refreshing Configuration;
-      const job = new CronJob(this.options.time, () => {
+      const job = new CronJob(this.options.time, async () => {
         this.logger.verbose(
           `last reloaded: ${this.scheduler.getCronJob(this.options.name).lastDate()}`,
         );
         // Reload Configuration
-        this.config.set(this.name, this.load());
+        this.config.set(this.name, await this.load());
       }) as any;
 
       this.scheduler.addCronJob(this.options.name, job);
